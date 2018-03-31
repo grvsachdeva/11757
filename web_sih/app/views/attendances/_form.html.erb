@@ -1,0 +1,47 @@
+<%= form_with(model: attendance, local: true) do |form| %>
+  <% if attendance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(attendance.errors.count, "error") %> prohibited this attendance from being saved:</h2>
+
+      <ul>
+      <% attendance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :image_uri %>
+    <%= form.text_field :image_uri, id: :attendance_image_uri %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location, id: :attendance_location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :remarks %>
+    <%= form.text_area :remarks, id: :attendance_remarks %>
+  </div>
+
+  <div class="field">
+    <%= form.label :timeIn %>
+    <%= form.datetime_select :timeIn, id: :attendance_timeIn %>
+  </div>
+
+  <div class="field">
+    <%= form.label :timeOut %>
+    <%= form.datetime_select :timeOut, id: :attendance_timeOut %>
+  </div>
+
+  <div class="field">
+    <%= form.label :employee_id %>
+    <%= form.text_field :employee_id, id: :attendance_employee_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

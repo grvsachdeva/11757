@@ -1,0 +1,51 @@
+<table class="centered">
+  <thead>
+  <tr>
+    <th>Date</th>
+    <th>Location</th>
+    <th>Time In</th>
+    <th>Time Out</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @attendances.each do |attendance| %>
+      <% if attendance.timeOut == nil %>
+          <tr style="background-color: #CCCCCC">
+      <% else %>
+          <tr>
+      <% end %>
+
+    <td><%= attendance.created_at.strftime("%B %d, %Y %I:%M %p") %></td>
+    <td><%= attendance.location %></td>
+    <td><%= attendance.timeIn.strftime("%B %d, %Y %I:%M %p") %></td>
+    <% if attendance.timeOut == nil %>
+      <td><%= attendance.timeOut %></td>
+    <% else %>
+      <td><%= attendance.timeOut.strftime("%B %d, %Y %I:%M %p") %></td>
+    <% end %>
+  </tr>
+  <% end %>
+
+  </tbody>
+</table>
+
+<style type="text/css">
+
+  tr{
+    border: 1px solid black;
+    margin: 20px;
+  }
+
+  th ,td{
+    font-size: 20px;
+    border: 1px solid black;
+    padding: 12px;
+  }
+
+  table{
+    margin-top: 100px;
+    margin-left: 200px;
+    width: 70%;
+  }
+</style>

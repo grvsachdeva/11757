@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Centralized Attendance System</title>
+  <%= csrf_meta_tags %>
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css">
+
+  <nav id="header">
+    <div class="nav-wrapper" >
+      <a href="#" class="brand-logo" id="logo">Public Work Department</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <%unless employee_signed_in? %>
+        <li class="header_options"><%= link_to "Sign up", new_employee_registration_path(@employee) %></li>
+        <%end%>
+        <% if employee_signed_in? %>
+        <li><%= link_to('Logout', destroy_employee_session_path, method: :delete) %></li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+</head>
+
+<body>
+
+<% if notice %>
+    <script type="text/javascript">
+        noty({text: '<%= notice %>', type: 'alert'});
+    </script>
+
+<% end %>
+
+
+<% if alert %>
+
+    <script type="text/javascript">
+        noty({text: '<%= alert %>', type: 'error'});
+    </script>
+<% end %>
+
+  <%= yield %>
+</body>
+</html>
+
+
+<style type="text/css">
+nav{
+background-color: #747474;
+height: 80px;
+}
+
+nav .brand-logo {
+ padding: 15px;
+}
+
+nav ul a{
+padding-top: 30px;
+font-size: 30px;
+}
+a:visited {
+color:white;
+}
+
+a:hover{
+ background-color:#747474;
+}
+
+#logo:hover{
+background-color: #747474;
+}
+
+</style>

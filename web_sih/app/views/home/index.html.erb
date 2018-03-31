@@ -1,0 +1,152 @@
+<div class="card hover">
+	<div class="card-img" style="background-image:url('/user1.png');">
+		<div class="overlay">
+			<div class="overlay-content">
+				<a class="hover" href="http://localhost:3000/employee">Login As Employee</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="card-content">
+		<h2>Employee Login</h2>
+	</div>
+</div>
+
+<div class="card">
+	<div class="card-img" style="background-image:url('/user.png');">
+		<div class="overlay">
+			<div class="overlay-content">
+				<a href="http://localhost:3000/admin">Login As Admin</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="card-content">
+		<h2>Department Login</h2>
+	</div>
+</div>
+
+<style type="text/css">
+
+body{
+background-image: url('/back1.jpg');
+background-repeat:no-repeat;
+}
+
+
+h2{
+	text-align: center;
+}
+.card {
+	width: 500px;
+	height: 500px;
+	display: inline-block;
+	margin: 180px;
+	border-radius: 100px;
+	-webkit-box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+	-webkit-transition: all .2s ease;
+	transition: all .2s ease;
+	background: #fff;
+	overflow: hidden;
+}
+.card:hover, .card.hover {
+	-webkit-transform: translateY(-4px);
+	transform: translateY(-4px);
+	-webkit-box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.3), 0 0 1px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.3), 0 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+.card:hover .card-content, .card.hover .card-content {
+	-webkit-box-shadow: inset 0 3px 0 0 #ccb65e;
+	box-shadow: inset 0 3px 0 0 #ccb65e;
+	border-color: #ccb65e;
+}
+.card:hover .card-img .overlay, .card.hover .card-img .overlay {
+	background-color: rgba(25, 29, 38, 0.85);
+	-webkit-transition: opacity .2s ease;
+	transition: opacity .2s ease;
+	opacity: 1;
+}
+.card-img {
+
+	height: 300px;
+	width: 100%;
+	background-color: #fff;
+	-webkit-transition: opacity .2s ease;
+	transition: opacity .2s ease;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.card-img .overlay {
+
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+	opacity: 0;
+}
+.card-img .overlay .overlay-content {
+	line-height: 224px;
+	width: 100%;
+	text-align: center;
+	color: #fff;
+}
+.card-img .overlay .overlay-content a {
+	color: #fff;
+	padding: 0 2rem;
+	display: inline-block;
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	height: 100px;
+	line-height: 40px;
+	border-radius: 20px;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 30px;
+	padding-top: 20px;
+}
+.card-img .overlay .overlay-content a:hover, .card-img .overlay .overlay-content a.hover {
+	background: #ccb65e;
+	border-color: #ccb65e;
+}
+.card-content {
+	width: 100%;
+	min-height: 104px;
+	background-color: #fff;
+	border-top: 1px solid #E9E9EB;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	padding: 1rem 2rem;
+	-webkit-transition: all .2s ease;
+	transition: all .2s ease;
+}
+.card-content a {
+	text-decoration: none;
+	color: #202927;
+}
+.card-content h2, .card-content a h2 {
+	font-size: 50px;
+	font-weight: 500;
+}
+.card-content p, .card-content a p {
+	font-size: .8rem;
+	font-weight: 400;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: rgba(32, 41, 28, 0.8);
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+	$('.card').delay(1800).queue(function(next) {
+		$(this).removeClass('hover');
+		$('a.hover').removeClass('hover');
+		next();
+	});
+});
+
+</script>

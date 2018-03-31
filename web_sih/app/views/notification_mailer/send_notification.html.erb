@@ -1,0 +1,14 @@
+Hi <b><%= @employee.name %></b>,
+<br />
+<br />
+<div style="font-size: 14px;">You are requested to mark your attendance immediately. It's urgent, so please make sure to mark as soon as possible.
+</div>
+<br />
+<hr />
+<br />
+You can use this link http://<%= ActionMailer::Base.default_url_options[:host] %>/sign_in to login to website
+<br />
+<hr />
+<br />
+Thank you,<br />
+<b><%= @sender.name %></b>

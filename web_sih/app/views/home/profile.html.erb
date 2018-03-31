@@ -1,0 +1,274 @@
+<div class="page-header"></div>
+<div class="profile-container">
+  <div class="row">
+  <div class="col-md-4">
+    <img src="https://image.ibb.co/jxGOma/image.jpg" class="img-responsive" width="100" height="100" />
+  </div>
+  <div class="col-md-8 profile-info">
+    <h5 class="user-mail"><i><%=@employee.email%></i></h5>
+    <h5 class="user-company"></h5>
+  </div>
+</div>
+  <br/><br/>
+  <div class="row more-info">
+  <div class="col-md-6">
+    <h5><b>Department Name</b></h5>
+    <p><%=@employee.departmentname%></p>
+  </div>
+  </div>
+   <div class="row more-info">
+    <div class="col-md-6">
+      <h5><b>Phone Number</b></h5>
+    <p><%=@employee.contactno%></p>
+  </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="todo-links"><a><i class="fa fa-pencil-square-o"></i> Edit Info</a>
+    </div>
+    <div class="todo-links"><a><i class="fa fa-frown-o"></i> Logout</a>
+    </div>
+
+  </div>
+  <br/><br/>
+  <p class="text-center">Public Works Department</p>
+</div>
+
+
+
+
+
+<style type="text/css">
+body{
+  background-color:#ccc;
+  font-family: 'Montserrat', sans-serif;
+}
+.page-header{
+  background-color:#0e2f44;
+  height:100px;
+  margin:0px;
+}
+.profile-container{
+  width:40%;
+  margin:auto;
+  background-color:#fff;
+  padding:30px;
+  margin-top:-50px;
+  height:auto;
+}
+.user-name{
+  color:#0e2f44;
+  font-weight:bold;
+}
+.user-mail{
+  color:#858585;
+}
+.user-company{
+  font-weight:bold;
+  color:#5ad45c;
+}.more-info{
+  background-color:#e5e5e5;
+  border-bottom:#ccc 1px solid ;
+}.todo-links{
+  padding:10px;
+  border-bottom:1px solid #ccc;
+
+}
+.todo-links a i{
+  margin-right:20px;
+}
+.todo-links a{
+  color:#000;
+  font-size:16px;
+}
+
+</style>
+
+
+
+<script type="text/javascript">
+(function(angular) {
+'use strict';
+var module = angular.module('app', [
+  'ngAnimate',
+  'ngTouch'
+]);
+
+module.directive('backgroundImagePreload', ['$imagePreload', function($imagePreload) {
+  return {
+    'restrict': 'A',
+    'link': function(scope, element, attr) {
+      if (!attr.backgroundImagePreload) return;
+      $imagePreload(attr.backgroundImagePreload).then(function() {
+        element.css({
+          'background-image': 'url(' + attr.backgroundImagePreload + ')'
+        });
+      });
+    }
+  };
+}]);
+
+module.factory('$imagePreload', ['$q', function($q) {
+  return function(url) {
+    var deferred = $q.defer(),
+      img = new Image();
+    img.src = url;
+
+    if (img.complete) {
+      deferred.resolve();
+    } else {
+      img.addEventListener('load', function() {
+        deferred.resolve();
+      });
+
+      img.addEventListener('error', function() {
+        deferred.reject();
+      });
+    }
+
+    return deferred.promise;
+  };
+}]);
+
+module.directive('background', ['$http', '$log', '$interval', '$imagePreload', '$window', '$animate', '$timeout', '$compile', function($http, $log, $interval, $imagePreload, $window, $animate, $timeout, $compile) {
+  return {
+    'restrict': 'A',
+    'scope': '=',
+    'link': function(scope, element, attr) {
+      scope.window = angular.element($window);
+      scope.bgProcess = undefined;
+      scope.assets = [];
+      scope.auto = (attr.auto) ? true : false;
+      scope.config = {
+        method: 'GET',
+        url: (attr.background) ? attr.background + '?limit=' + attr.requestLimit : 'https://www.reddit.com/r/earthporn/top.json?limit=50'
+      };
+
+      scope.getWindowDimensions = function() {
+        return {
+          'h': $window.innerHeight,
+          'w': $window.innerWidth
+        };
+      };
+
+      scope.$watch(scope.getWindowDimensions, function(n) {
+        if (!n) {
+          return;
+        }
+
+        scope.height = n.h;
+        scope.width = n.w;
+
+        // $log.debug('width X height:', scope.height, scope.width);
+      }, true);
+
+      scope.window.bind('resize', function() {
+        scope.$apply();
+      });
+
+      scope.change = function() {
+        if (scope.assets.length > 0) {
+          scope.rand = Math.floor(Math.random() * (scope.assets.length - 1)) + 1;
+
+          if (scope.assets[scope.rand]) {
+            scope.loading = true;
+
+            scope.oldBg = element.children(':first');
+
+            scope.newBg = angular.element('<div/>').addClass('image').addClass('fade-out');
+
+
+            $imagePreload(scope.assets[scope.rand].img).then(function() {
+              scope.bg = {};
+
+              scope.newBg.css({
+                'background-image': 'url(' + scope.assets[scope.rand].img + ')'
+              });
+
+              element.append(scope.newBg);
+              $compile(scope.newBg)(scope);
+              $animate.addClass(scope.oldBg, 'fade-out');
+
+              $timeout(function() {
+                scope.bg.img = scope.assets[scope.rand].img;
+                scope.bg.title = scope.assets[scope.rand].title;
+                scope.bg.author = scope.assets[scope.rand].author;
+                scope.bg.authorLink = scope.assets[scope.rand].author; // 'https://www.reddit.com/u/'
+                scope.bg.link = scope.assets[scope.rand].link; // 'https://www.reddit.com'
+                scope.bg.subreddit = '/r/' + scope.assets[scope.rand].subreddit;
+                scope.bg.show = true;
+              }, 1000);
+
+              $animate.removeClass(scope.newBg, 'fade-out').then(function() {
+                $timeout(function() {
+                  scope.oldBg.remove();
+                }, 5000);
+              });
+
+            });
+
+            scope.loading = false;
+
+          }
+        } else {
+          scope.stopChange();
+        }
+      };
+
+      scope.startChange = function() {
+        if (angular.isDefined(scope.bgProcess)) {
+          return;
+        }
+
+        scope.bgProcess = $interval(function() {
+          scope.change();
+        }, 25000);
+      };
+
+      scope.stopChange = function() {
+        if (angular.isDefined(scope.bgProcess)) {
+          $interval.cancel(scope.bgProcess);
+          scope.bgProcess = undefined;
+        }
+      };
+
+      element.on('$destroy', function() {
+        $interval.cancel(scope.bgProcess);
+      });
+
+      $http(scope.config)
+        .success(function(response) {
+          scope.data = response.data.children;
+
+          angular.forEach(scope.data, function(value) {
+            if ((value.data.preview) && (value.data.preview.images[0].source.url) && scope.height < value.data.preview.images[0].source.height && scope.width < value.data.preview.images[0].source.width) {
+              // $log.debug('value.data', value.data);
+
+              this.push({
+                author: value.data.author,
+                link: value.data.permalink,
+                title: value.data.title,
+                subreddit: value.data.subreddit,
+                img: value.data.preview.images[0].source.url.replace(/^http:\/\//i, 'https://')
+              });
+
+              if (element.children(':first') && !element.children(':first').css('background-image')) {
+                scope.change();
+              }
+            }
+          }, scope.assets);
+
+          if (scope.auto) {
+            scope.startChange();
+          }
+
+        }, function(response) {
+          // $log.error(response);
+        });
+
+    }
+  };
+}]);
+
+})(window.angular);
+</script>

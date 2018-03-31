@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Image uri:</strong>
+  <%= @attendance.image_uri %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @attendance.location %>
+</p>
+
+<p>
+  <strong>Remarks:</strong>
+  <%= @attendance.remarks %>
+</p>
+
+<p>
+  <strong>Timein:</strong>
+  <%= @attendance.timeIn %>
+</p>
+
+<p>
+  <strong>Timeout:</strong>
+  <%= @attendance.timeOut %>
+</p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @attendance.employee %>
+</p>
+
+<%= link_to 'Edit', edit_attendance_path(@attendance) %> |
+<%= link_to 'Back', attendances_path %>

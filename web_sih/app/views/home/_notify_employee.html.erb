@@ -1,0 +1,53 @@
+ <div class="card-panel" style="background-color:#0e2f44;color:white">
+    <h4>Employees List</h4>
+  </div>
+  <% @employees.each do |employee| %>
+      <div class="card-panel hoverable" style="width: 100%; display: inline-flex;background-color:#cccccc">
+          <h5><%= employee.name %></h5>
+
+        <span style=" margin-left: auto; margin-right: 0px;">
+        <%= link_to "Attendance",{:controller => :home,:action => :employee_attendance, eid: employee.id}, :method => :get, class: "btn waves-effect waves-ligh" %>
+      </span>
+
+        <span style=" margin-left: 8px;">
+        <%= link_to "Send",{:controller => :home,:action => :send_notification, eid: employee.id}, :method => :post, class: "btn waves-effect waves-ligh" %>
+      </span>
+        <br />
+
+      </div>
+  <% end %>
+
+ <style>
+h4{
+background-color: #0e2f44;
+}
+   .linking {
+     margin-left: auto;
+     background-color: #5ad45c;
+     height:20px;
+     width: 50px;
+     border: none;
+     color: #ff9800;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 14px;
+     cursor: pointer;
+     color: black;
+   }
+
+     .linking:hover{
+       margin-left: auto;
+       background-color: #5ad45c;
+       height:25px;
+       width: 55px;
+       border: none;
+       color: #ff9800;
+       text-align: center;
+       text-decoration: none;
+       display: inline-block;
+       font-size: 14px;
+       cursor: pointer;
+       color: black;
+     }
+ </style>

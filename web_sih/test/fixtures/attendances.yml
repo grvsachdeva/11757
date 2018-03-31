@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  image_uri: MyString
+  location: MyString
+  remarks: MyText
+  timeIn: 2018-03-30 03:13:31
+  timeOut: 2018-03-30 03:13:31
+  employee: one
+
+two:
+  image_uri: MyString
+  location: MyString
+  remarks: MyText
+  timeIn: 2018-03-30 03:13:31
+  timeOut: 2018-03-30 03:13:31
+  employee: two

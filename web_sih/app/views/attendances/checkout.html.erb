@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="card-panel hoverable">
+    <h5>Please enter the check-out time of the previous check-in first:</h5>
+    <br />
+    <% @unmarked_records.each do |record| %>
+        <h6><b>Check-In marked at:</b> <%= record.timeIn %></h6><br />
+        <h6><b>Check-In location:</b> <%= record.location %></h6><br />
+
+        <%= form_tag 'attendances/checkupdate' do %>
+            <div class="container">
+              <div class="form">
+                <span>Check-out Time: <%= time_field_tag :timeOut, params[:timeOut] %></span>
+                <span><%= button_tag(type: "submit", class: "btn btn-default ") do %>
+          Save time
+         <% end %></span>
+                <%= hidden_field_tag :attendance_id, record.id %>
+                <%= hidden_field_tag :employee_id, record.employee_id %>
+                <br /><br /><br />
+              </div>
+            </div>
+        <% end %>
+    <% end %>
+  </div>
+</div>
